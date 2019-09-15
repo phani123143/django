@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<table align="center">
+    <tr>
+        <th><h3>Welcome : {{ emp.name }}</h3></th>
+    </tr>
+    <tr>
+        <td>
+            <a href="/viewprofile/?uname={{ emp.username }}">View Profile</a>
+        </td>
+        <td>
+            <a href="/updateprofile/?uname={{ emp.username }}">Update Profile</a>
+        </td>
+        <td>
+            <a href="/deleteprofile/?uname={{ emp.username }}">Delete Profile</a>
+        </td>
+        <td>
+            <a href="/login/">Login</a>
+        </td>
+    </tr>
+</table>
+    {% if profile %}
+    <table align="center">
+    <tr><th>Profile</th></tr>
+    <tr>
+        <td>Idno : {{ profile.idno }}</td>
+    </tr>
+    <tr>
+        <td>Name : {{ profile.name }}</td>
+    </tr>
+    <tr>
+        <td>Contact No : {{ profile.contact }}</td>
+    </tr>
+    <tr>
+        <td>Salary : {{ profile.salary }}</td>
+    </tr>
+    <tr>
+        <td>UserName : {{ profile.username }}</td>
+    </tr>
+    </table>
+    {% endif %}
+{% if delete %}
+    <form action="/delete/" method="post">
+    {% csrf_token %}
+    <tr>
+        <th>Delete Profile</th>
+    </tr>
+        <tr>
+    <td>Idno : {{ delete.idno }}</td>
+    </tr>
+    <tr><td>Name : {{ delete.name }}</td></tr>
+    <tr>
+        <td>
+            <input type="radio" value="Yes" name="a"> Yes
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="radio" value="No" name="a" checked> No
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="hidden" name="uname" value="{{ delete.username }}">
+        </td>
+        <td>
+            <input type="submit" value="Delete">
+        </td>
+    </tr>
+    </form>
+{% endif %}
+{% if update %}
+    <form action="/updatedetails/" method="post">
+    {% csrf_token %}
+    <table align="center">
+        <tr>
+            <td>
+                <input type="number" readonly placeholder="Idno" name="idno" required value="{{ update.idno }}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Name" name="name" required value="{{ update.name}}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" placeholder="Contact Number" name="contact" required value="{{ update.contact }}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" placeholder="Salary" name="salary" required value="{{ update.salary }}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Username" name="username" required value="{{ update.username }}" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="password" placeholder="Password" name="password" required value="{{ update.password }}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Update">
+            </td>
+        </tr>
+    </table>
+    </form>
+{% endif %}
+</body>
+</html>
